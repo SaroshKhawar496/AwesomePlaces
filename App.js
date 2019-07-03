@@ -9,6 +9,8 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, TextInput, Button} from 'react-native';
 
+import ListItem from "./src/components/ListItem/ListItem";
+
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
   android:
@@ -43,7 +45,7 @@ export default class App extends Component<Props> {
   render() {
     //converting the array places to array of jsx elements for rendering
     const placesOutput = this.state.places.map((place, i) =>(
-      <Text key={i}>{place}</Text>
+      <ListItem key={i} placeName={place} />
     ))
     return (
       <View style={styles.container}>
@@ -66,7 +68,7 @@ export default class App extends Component<Props> {
       </View>
 
       {/* View below is for showing the places stored in the app */}
-      <View>
+      <View style={styles.listContainer}>
         {placesOutput}
       </View>
       
@@ -96,6 +98,9 @@ export default class App extends Component<Props> {
     }, 
     placeButton:{
       width: "30%"
+    },
+    listContainer: {
+      width: "100%"
     }
   });
   
