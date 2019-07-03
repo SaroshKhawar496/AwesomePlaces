@@ -19,7 +19,8 @@ const instructions = Platform.select({
 type Props = {};
 export default class App extends Component<Props> {
   state = {
-    placeName: ''
+    placeName: "",
+    places: []
   }
   
   placeNameChangeHandler = (val) => {
@@ -27,8 +28,23 @@ export default class App extends Component<Props> {
       placeName: val
     });
   }
+
+  placeSubmitHandler = () => {
+    if (this.state.placeName.trim() === ""){
+      return; //not allowing user to add empty place
+    }
+    this.setState(prevState => {
+      return {
+        places: prevState.places.concat(prevState.placeName)
+      }
+    })
+  }
   
   render() {
+    //converting the array places to array of jsx elements for rendering
+    const placesOutput = this.state.places.map((place, i) =>(
+      <Text key={i}>{place}</Text>
+    ))
     return (
       <View style={styles.container}>
       <View style={styles.inputContainer}>
@@ -44,10 +60,15 @@ export default class App extends Component<Props> {
         <Button
         title="Add"
         style={styles.placeButton}
+        onPress={this.placeSubmitHandler}
         />
       
       </View>
-      
+
+      {/* View below is for showing the places stored in the app */}
+      <View>
+        {placesOutput}
+      </View>
       
       </View>
       );
