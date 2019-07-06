@@ -15,16 +15,17 @@ export default class App extends Component {
 
     this.setState(prevState => {
       return {
-        places: prevState.places.concat(placeName)
+        //key below is needed to be used in FlatList in PlaceList
+        places: prevState.places.concat({key: Math.random() , value: placeName})
       }
     })
   }
 
-  placeDeletedHandler = (index) => {
+  placeDeletedHandler = (key) => {
     this.setState(prevState => {
       return {
-        places: prevState.places.filter((place, i) => {
-          return i !==index; //if the index of item is not == to passed index, which you want to delete
+        places: prevState.places.filter(place => {
+          return place.key !== key; //if the index of item is not == to passed index, which you want to delete
         })
       }
     });

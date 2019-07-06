@@ -1,18 +1,22 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {StyleSheet, FlatList} from 'react-native';
 
 import ListItem from "../ListItem/ListItem"
 
 const placeList = (props) => {
         //converting the array places to array of jsx elements for rendering
-    const placesOutput = props.places.map((place, i) =>(
-        <ListItem 
-        key={i} 
-        placeName={place} 
-        onItemPressed={()=> props.onItemDeleted(i)}/>
-    ))
+
+
     return (
-        <View style={styles.listContainer}>{placesOutput}</View>
+        <FlatList //best way to output list which is too long. performance optimised
+        style={styles.listContainer} 
+        data={props.places}
+        renderItem={(info) => (//info is the item to be rendered at the instance
+            <ListItem 
+            placeName={info.item.value} //value & key property is coming from App.js
+            onItemPressed={()=> props.onItemDeleted(info.item.key)}/>
+        )}
+        />
     )
 }
 
