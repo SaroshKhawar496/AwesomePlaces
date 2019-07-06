@@ -1,10 +1,14 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 const listItem = (props) => (
-    <View style={styles.listItem}>
-        <Text>{props.placeName}</Text>
-    </View>
+    //TouchableWithoutFeedback allows us to register touch event w/o feedback
+    // only one child element to be allowed inside it
+    <TouchableOpacity onPress={props.onItemPressed}>
+        <View style={styles.listItem} >
+            <Text>{props.placeName}</Text>
+        </View>
+    </TouchableOpacity>
 );
 
 

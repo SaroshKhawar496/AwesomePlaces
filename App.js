@@ -1,10 +1,3 @@
-/**
-* Sample React Native App
-* https://github.com/facebook/react-native
-*
-* @format
-* @flow
-*/
 
 import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
@@ -12,10 +5,6 @@ import {StyleSheet, View} from 'react-native';
 
 import PlaceInput from './src/components/PlaceInput/PlaceInput';
 import PlaceList from './src/components/PlaceList/PlaceList';
-
-
-
-
 
 export default class App extends Component {
   state = {
