@@ -11,6 +11,8 @@ import {Platform, StyleSheet, Text, View, TextInput, Button} from 'react-native'
 
 import ListItem from "./src/components/ListItem/ListItem";
 
+import PlaceInput from './src/components/PlaceInput/PlaceInput'
+
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
   android:
@@ -21,7 +23,6 @@ const instructions = Platform.select({
 type Props = {};
 export default class App extends Component<Props> {
   state = {
-    placeName: "",
     places: []
   }
   
@@ -31,13 +32,11 @@ export default class App extends Component<Props> {
     });
   }
 
-  placeSubmitHandler = () => {
-    if (this.state.placeName.trim() === ""){
-      return; //not allowing user to add empty place
-    }
+  placeAddedHandler = (placeName) => {
+
     this.setState(prevState => {
       return {
-        places: prevState.places.concat(prevState.placeName)
+        places: prevState.places.concat(placeName)
       }
     })
   }
@@ -49,27 +48,13 @@ export default class App extends Component<Props> {
     ))
     return (
       <View style={styles.container}>
-      <View style={styles.inputContainer}>
       
-        <TextInput 
-
-        placeholder="An Awesome Place"
-        value={this.state.placeName} 
-        onChangeText={this.placeNameChangeHandler}
-        style={styles.placeInput}
-        />
-        
-        <Button
-        title="Add"
-        style={styles.placeButton}
-        onPress={this.placeSubmitHandler}
-        />
-      
-      </View>
+        <PlaceInput onPlaceAdded={this.placeAddedHandler} />
 
       {/* View below is for showing the places stored in the app */}
       <View style={styles.listContainer}>
         {placesOutput}
+      
       </View>
       
       </View>
