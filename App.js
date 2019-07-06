@@ -19,6 +19,16 @@ export default class App extends Component {
       }
     })
   }
+
+  placeDeletedHandler = (index) => {
+    this.setState(prevState => {
+      return {
+        places: prevState.places.filter((place, i) => {
+          return i !==index; //if the index of item is not == to passed index, which you want to delete
+        })
+      }
+    });
+  }
   
   render() {
 
@@ -26,7 +36,9 @@ export default class App extends Component {
       <View style={styles.container}>
       
         <PlaceInput onPlaceAdded={this.placeAddedHandler} />
-        <PlaceList places={this.state.places} />
+        <PlaceList 
+        places={this.state.places} 
+        onItemDeleted={this.placeDeletedHandler}/>
       
       </View>
       );
