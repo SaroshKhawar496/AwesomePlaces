@@ -13,7 +13,8 @@ const placeList = (props) => {
         data={props.places}
         renderItem={(info) => (//info is the item to be rendered at the instance
             <ListItem 
-            placeName={info.item.value} //value & key property is coming from App.js
+            placeName={info.item.name} //value & key property is coming from App.js
+            placeImg={info.item.image}
             onItemPressed={()=> props.onItemDeleted(info.item.key)}/>
         )}
         />
