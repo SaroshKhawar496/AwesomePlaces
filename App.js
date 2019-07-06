@@ -7,31 +7,21 @@
 */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, TextInput, Button} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 
-import ListItem from "./src/components/ListItem/ListItem";
 
-import PlaceInput from './src/components/PlaceInput/PlaceInput'
+import PlaceInput from './src/components/PlaceInput/PlaceInput';
+import PlaceList from './src/components/PlaceList/PlaceList';
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-  'Double tap R on your keyboard to reload,\n' +
-  'Shake or press menu button for dev menu',
-});
 
-type Props = {};
-export default class App extends Component<Props> {
+
+
+
+export default class App extends Component {
   state = {
     places: []
   }
   
-  placeNameChangeHandler = (val) => {
-    this.setState({
-      placeName: val
-    });
-  }
-
   placeAddedHandler = (placeName) => {
 
     this.setState(prevState => {
@@ -42,20 +32,12 @@ export default class App extends Component<Props> {
   }
   
   render() {
-    //converting the array places to array of jsx elements for rendering
-    const placesOutput = this.state.places.map((place, i) =>(
-      <ListItem key={i} placeName={place} />
-    ))
+
     return (
       <View style={styles.container}>
       
         <PlaceInput onPlaceAdded={this.placeAddedHandler} />
-
-      {/* View below is for showing the places stored in the app */}
-      <View style={styles.listContainer}>
-        {placesOutput}
-      
-      </View>
+        <PlaceList places={this.state.places} />
       
       </View>
       );
@@ -69,23 +51,6 @@ export default class App extends Component<Props> {
       justifyContent: 'flex-start',
       alignItems: 'center',
       backgroundColor: '#F5FCFF',
-    },
-    inputContainer: {
-      // flex: 1,
-      width: "100%",
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "center"
-    },
-    placeInput: {
-      width: "70%"
-
-    }, 
-    placeButton:{
-      width: "30%"
-    },
-    listContainer: {
-      width: "100%"
     }
   });
   
