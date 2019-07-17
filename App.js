@@ -2,61 +2,31 @@
 import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
 
+import {connect} from 'react-redux';
 
 import PlaceInput from './src/components/PlaceInput/PlaceInput';
 import PlaceList from './src/components/PlaceList/PlaceList';
 import PlaceDetail from './src/components/PlaceDetail/PlaceDetail';
 
+import {addPlace, deletePlace, selectPlace, deselectPlace} from './src/store/actions/index'
 
-export default class App extends Component {
-  state = {
-    places: [],
-    selectedPlace: null
-  }
-  
+class App extends Component {
+
   placeAddedHandler = (placeName) => {
 
-    this.setState(prevState => {
-      return {
-        //key below is needed to be used in FlatList in PlaceList
-        places: prevState.places.concat({
-          key: Math.random(), 
-          name: placeName,
-          image: {
-            uri: "https://vacationidea.com/pix/img25Hy8R/articles/most-beautiful-places-in-the-world_t5.jpg"
+    this.props.onAddPlace(placeName);
+  };
 
-          }
-        
-        })
-      }
-    })
-  }
   placeDeletedHandler = () => {
-    this.setState(prevState => {
-    return {
-      places: prevState.places.filter(place => {
-        return place.key !== prevState.selectedPlace.key; //if the index of item is not == to passed index, which you want to delete
-      }),
-      selectedPlace: null
-    }
-  });
+    this.props.onDeletePlace();
 
   }
   modalClosedHandler = () => {
-    this.setState({
-        selectedPlace: null
-    });
+    this.props.onDeselectPlace();
   }
 
   placeSelectedHandler = (key) => {
-    this.setState(prevState => {
-      return {
-        selectedPlace: prevState.places.find(place => {
-          return place.key === key;
-        })
-      };
-    });
-
+    this.props.onSelectPlace(key);
   }
 
   
@@ -65,13 +35,13 @@ export default class App extends Component {
     return (
       <View style={styles.container}>
         <PlaceDetail 
-        selectedPlace={this.state.selectedPlace} 
+        selectedPlace={this.props.selectedPlace} 
         onItemDeleted={this.placeDeletedHandler} 
         onModalClosed={this.modalClosedHandler}
         />
         <PlaceInput onPlaceAdded={this.placeAddedHandler} />
         <PlaceList 
-        places={this.state.places} 
+        places={this.props.places} 
         onItemSelected={this.placeSelectedHandler}/>
       
       </View>
@@ -89,3 +59,26 @@ export default class App extends Component {
     }
   });
   
+  const mapStateToProps = state => {
+    return {
+      /* need to return a javascript obj where we maps some keys,
+      which we can access as props in our components to slices of
+       our state*/
+       places: state.places.places, //state->configureStore.js->places.js
+       selectedPlace: state.places.selectedPlace
+    };
+  };
+  // dispatch is passed auto by redux
+  const mapDispatchToProps = dispatch => {
+    return {
+      // using the action creators with dispatch
+      onAddPlace: (name) => dispatch(addPlace(name)),
+      onDeletePlace: () => dispatch(deletePlace()),
+      onSelectPlace: (key) => dispatch(selectPlace(key)),
+      onDeselectPlace: () => dispatch(deselectPlace())
+    };
+  };
+
+  // connected App component to redux store
+  export default connect(mapStateToProps,mapDispatchToProps)(App);
+  //connect is a hi-order comp that returns a fxn witch returns the App.
