@@ -1,15 +1,34 @@
 //Start the app, register screen and start navigation for the app
 
 import {Navigation} from 'react-native-navigation';
+import {Provider} from 'react-redux';
 
 import AuthScreen from './src/screens/Auth/Auth';
 import SharePlaceScreen from './src/screens/SharePlace/SharePlace';
 import FindPlaceScreen from './src/screens/FindPlace/FindPlace';
+import configureStore from './src/store/configureStore';
 
-//Register Screens. appName.screenName
-Navigation.registerComponent("awesome-places.AuthScreen", () => AuthScreen);
-Navigation.registerComponent("awesome-places.SharePlaceScreen", ()=>SharePlaceScreen);
-Navigation.registerComponent("awesome-places.FindPlaceScreen", ()=>FindPlaceScreen);
+const store = configureStore();
+
+//Register Screens. appName.screenName. should be connected to Redux
+//all screens get Redux Store
+Navigation.registerComponent(
+  "awesome-places.AuthScreen", 
+   () => AuthScreen,
+   store,
+   Provider);
+
+Navigation.registerComponent(
+  "awesome-places.SharePlaceScreen",
+   ()=>SharePlaceScreen,
+   store,
+   Provider);
+
+Navigation.registerComponent(
+  "awesome-places.FindPlaceScreen",
+   ()=>FindPlaceScreen,
+   store,
+   Provider);
 
 
 //Start a App
