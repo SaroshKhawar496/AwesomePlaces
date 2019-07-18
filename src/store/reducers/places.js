@@ -12,7 +12,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state, //copying old state
                             //key below is needed to be used in FlatList in PlaceList
-            places: prevState.places.concat({
+            places: state.places.concat({
                 key: Math.random(), 
                 name: action.placeName,
                 image: {
@@ -24,7 +24,7 @@ const reducer = (state = initialState, action) => {
             case DELETE_PLACE:
                 return{
                     ...state,                    
-                    places: prevState.places.filter(place => {
+                    places: state.places.filter(place => {
                         return place.key !== state.selectedPlace.key; //if the index of item is not == to passed index, which you want to delete
                     }),
                     selectedPlace: null
