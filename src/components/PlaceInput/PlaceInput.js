@@ -17,6 +17,7 @@ class PlaceInput extends Component {
         if (this.state.placeName.trim() === ""){
           return; //not allowing user to add empty place
         }
+        //passing the placeName in state here to function provided via props
         this.props.onPlaceAdded(this.state.placeName);
       }
       
