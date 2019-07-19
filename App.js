@@ -35,7 +35,9 @@ Navigation.registerComponent(
 
 Navigation.registerComponent(
   "awesome-places.PlaceDetailScreen",
-  ()=>PlaceDetailScreen
+  ()=>PlaceDetailScreen,
+  store,
+  Provider
 );
 
 //Start a App

@@ -24,7 +24,7 @@ const reducer = (state = initialState, action) => {
                 return{
                     ...state,                    
                     places: state.places.filter(place => {
-                        return place.key !== state.selectedPlace.key; //if the index of item is not == to passed index, which you want to delete
+                        return place.key !== action.placeKey; //if the index of item is not == to passed index, which you want to delete
                     })
                   
             };       
