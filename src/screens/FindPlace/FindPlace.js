@@ -5,6 +5,21 @@ import PlaceList from '../../components/PlaceList/PlaceList';
 
 class FindPlaceScreen extends Component {
 
+    //listening to the navigator event to know when side drawer button is clicked
+    constructor(props) { 
+        super(props);
+        this.props.navigator.setOnNavigatorEvent(this.onNavigatorEvent);
+    }
+    onNavigatorEvent = event => {
+        if (event.type === "NavBarButtonPress") { //type of event from console.log
+            if (event.id === "sideDrawerToggle"){ //id to the button given in startMainTabs.js
+                this.props.navigator.toggleDrawer({
+                    side: "left"
+                })
+            }
+        }
+    }
+
     itemSelectedHandler = key => {
         const selPlace = this.props.places.find(place => { //finding the name of the place from given key from redux store available 
             return place.key === key;
