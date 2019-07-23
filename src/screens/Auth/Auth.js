@@ -5,6 +5,7 @@ import startMainTabs from '../MainTabs/startMainTabs';
 
 import DefaultInput from '../../components/UI/DefaultInput/DefaultInput'
 import HeadingText from '../../components/UI/HeadingText/HeadingText';
+import MainText from '../../components/UI/MainText/MainText';
 
 class AuthScreen extends Component{
     loginHandler = () => {
@@ -14,7 +15,9 @@ class AuthScreen extends Component{
     render(){
         return(
             <View style ={styles.container}>
-                <HeadingText>Please Login</HeadingText>
+                <MainText>
+                    <HeadingText>Please Login</HeadingText>
+                </MainText>
                 <Button title="Switch to Login"/>
                 <View style={styles.inputContainer}>
                     {/* passing style as props below to DefaultInput will override the style in DefaultInput */}
