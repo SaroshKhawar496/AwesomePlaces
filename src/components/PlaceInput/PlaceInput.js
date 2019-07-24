@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { View, TextInput, Button, StyleSheet} from 'react-native';
+import DefaultInput from '../UI/DefaultInput/DefaultInput';
 
 class PlaceInput extends Component {
 
@@ -12,53 +13,17 @@ class PlaceInput extends Component {
           placeName: val
         });
       }
-
-      placeSubmitHandler = () => {
-        if (this.state.placeName.trim() === ""){
-          return; //not allowing user to add empty place
-        }
-        //passing the placeName in state here to function provided via props
-        this.props.onPlaceAdded(this.state.placeName);
-      }
-      
+     
     render(){
-        return (
-            <View style={styles.inputContainer}>
-      
-            <TextInput 
-    
-            placeholder="An Awesome Place"
-            value={this.state.placeName} 
-            onChangeText={this.placeNameChangeHandler}
-            style={styles.placeInput}
-            />
-            
-            <Button
-            title="Add"
-            style={styles.placeButton}
-            onPress={this.placeSubmitHandler}
-            />
-          
-          </View>
+        return (      
+          // 2 way bounded
+          <DefaultInput 
+          placeholder="Place Name" 
+          value={this.state.placeName} 
+          onChangeText={this.placeNameChangeHandler}/> 
         )
 
     }
 }
-const styles = StyleSheet.create({
-    inputContainer: {
-        // flex: 1,
-        width: "100%",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center"
-      },
-      placeInput: {
-        width: "70%"
-  
-      }, 
-      placeButton:{
-        width: "30%"
-      }  
-});
 
 export default PlaceInput;

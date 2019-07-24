@@ -10,7 +10,7 @@ import {
 import {connect} from 'react-redux';
 
 import {addPlace} from '../../store/actions/index';
-import DefaultInput from '../../components/UI/DefaultInput/DefaultInput';
+import PlaceInput from '../../components/PlaceInput/PlaceInput';
 import MainText from '../../components/UI/MainText/MainText';
 import HeadingText from '../../components/UI/HeadingText/HeadingText';
 import imagePlaceHolder from "../../assets/BPlace.jpg"
@@ -68,8 +68,7 @@ class SharePlaceScreen extends Component {
                         <Button title="Locate Me" />
                     </View>
 
-                    <DefaultInput placeholder="Place Name" />
-                    
+                    <PlaceInput />                    
                     <View style={styles.button}>                    
                         <Button title="Share the Place!"/>
                     </View>
