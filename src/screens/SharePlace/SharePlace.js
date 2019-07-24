@@ -20,6 +20,10 @@ import PickLocation from '../../components/PickLocation/PickLocation';
 
 
 class SharePlaceScreen extends Component {
+    state = {
+        placeName: ""
+
+    }
     //listening to the navigator event to know when side drawer button is clicked
     constructor(props) { 
         super(props);
@@ -35,8 +39,17 @@ class SharePlaceScreen extends Component {
         }
     }
 
-    placeAddedHandler = placeName => {
-        this.props.onAddPlace(placeName);
+    placeNameChangedHandler = val => {
+        this.setState({
+            placeName: val
+        })
+    }
+    placeAddedHandler = () => {
+        if (this.state.placeName.trim() !== "" ){
+            //dispatch action only if place is not empty string
+            this.props.onAddPlace(this.state.placeName);
+            alert("Place Added!");
+        }
     }
 
     render(){
@@ -52,10 +65,13 @@ class SharePlaceScreen extends Component {
 
                     <PickImage />     
                     <PickLocation />  
-                    
-                    <PlaceInput />                    
+
+                    <PlaceInput 
+                    placeName={this.state.placeName} 
+                    onChangeText={this.placeNameChangedHandler}
+                    />                    
                     <View style={styles.button}>                    
-                        <Button title="Share the Place!"/>
+                        <Button title="Share the Place!" onPress={this.placeAddedHandler}/>
                     </View>
                 </View>
             </ScrollView>
