@@ -13,7 +13,10 @@ import {addPlace} from '../../store/actions/index';
 import PlaceInput from '../../components/PlaceInput/PlaceInput';
 import MainText from '../../components/UI/MainText/MainText';
 import HeadingText from '../../components/UI/HeadingText/HeadingText';
-import imagePlaceHolder from "../../assets/BPlace.jpg"
+import PickImage from '../../components/PickImage/PickImage';
+import PickLocation from '../../components/PickLocation/PickLocation';
+
+
 
 
 class SharePlaceScreen extends Component {
@@ -46,28 +49,10 @@ class SharePlaceScreen extends Component {
                             Share a Place with us!
                         </HeadingText>
                     </MainText>
+
+                    <PickImage />     
+                    <PickLocation />  
                     
-                    <View style={styles.placeholder}>
-                        <Image  
-                        source={imagePlaceHolder} 
-                        style={styles.previewImage}
-                        />
-                    </View>
-
-                    <View style={styles.button}>
-                        <Button title="Pick Image" />
-                    </View>
-                    
-                    <View style={styles.placeholder}>
-                        <Text>
-                            Map
-                        </Text>
-                    </View>
-
-                    <View style={styles.button}>
-                        <Button title="Locate Me" />
-                    </View>
-
                     <PlaceInput />                    
                     <View style={styles.button}>                    
                         <Button title="Share the Place!"/>
