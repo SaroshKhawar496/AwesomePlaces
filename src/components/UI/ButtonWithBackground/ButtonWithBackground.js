@@ -1,14 +1,37 @@
 import React from 'react';
-import {TouchableOpacity, Text, View, StyleSheet} from 'react-native';
+import {
+    TouchableOpacity, 
+    //component below works only on android
+    TouchableNativeFeedback,
+     Text,
+    View,
+    StyleSheet,
+    //Platform API will help detect which platform app is running on
+    Platform
+    } from 'react-native';
 
-const buttonWithBackground = props => (
-
-    <TouchableOpacity onPress={props.onPress}>
+const buttonWithBackground = props => {
+        const content = (
         <View style={[styles.button, {backgroundColor: props.color}]}>
             <Text>{props.children}</Text>
         </View>
-    </TouchableOpacity>
-);
+
+    );
+
+    if (Platform.OS === 'android'){
+        return(
+            <TouchableNativeFeedback onPress={props.onPress}>
+                {content}
+            </TouchableNativeFeedback>
+        );
+    }
+    //not on android
+    return(
+        <TouchableOpacity onPress={props.onPress}>
+            {content}
+        </TouchableOpacity>
+    );
+};
 
 const styles = StyleSheet.create({
     button: {
