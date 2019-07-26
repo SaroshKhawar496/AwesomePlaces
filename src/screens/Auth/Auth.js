@@ -1,5 +1,13 @@
 import React, {Component} from 'react';
-import {View, Text, Button, TextInput, StyleSheet, ImageBackground} from 'react-native';
+import {
+    View, 
+    Text, 
+    Button, 
+    TextInput, 
+    StyleSheet, 
+    ImageBackground,
+    Dimensions
+} from 'react-native';
 
 import startMainTabs from '../MainTabs/startMainTabs';
 
@@ -32,8 +40,18 @@ class AuthScreen extends Component{
                     <View style={styles.inputContainer}>
                         {/* passing style as props below to DefaultInput will override the style in DefaultInput */}
                         <DefaultInput placeholder="Your Email Address"  style={styles.input}/>
-                        <DefaultInput placeholder="Password"  style={styles.input}/>
-                        <DefaultInput placeholder="Confirm Password" style={styles.input}/>
+                        
+                        {/* aligning password fields on same row if device rotated */}
+                        <View style={styles.passwordContainer}>   
+                            <View style={styles.passwordWrapper}>
+                                <DefaultInput placeholder="Password"  style={styles.input}/>
+                            </View>
+                            
+                            <View style={styles.passwordWrapper}>
+                                <DefaultInput placeholder="Confirm Password" style={styles.input}/>
+                            </View>
+
+                        </View>
                     </View>
                     <ButtonWithBackground 
                     color="#29aaf4" 
@@ -63,6 +81,13 @@ const styles = StyleSheet.create({
     backgroundImage: {
         width: "100%",
         flex: 1
+    },
+    passwordContainer: {
+        flexDirection: Dimensions.get("window").height > 500 ? "column" : "row",
+        justifyContent: "space-between"
+    }, 
+    passwordWrapper: {
+        width: Dimensions.get("window").height > 500 ? "100%": "45%"
     }
 });
 
