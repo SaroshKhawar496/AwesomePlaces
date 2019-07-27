@@ -27,12 +27,20 @@ class AuthScreen extends Component{
         super(props);
         //it will listen to change in dimensions eg. device rotated
         //so we can change sytles on the fly
-        Dimensions.addEventListener("change", (dims)=> {
-            this.setState({
-                viewMode: Dimensions.get("window").height > 500 ? "portrait": "landscape"
-            });
+        Dimensions.addEventListener("change", this.updateStyles);
+        
+    }
+    //to unmount the eventlistener created above to prevent memory leaks
+    componentWillUnmount() {
+        Dimensions.removeEventListener("change", this.updateStyles)
+    }
+
+    updateStyles = (dims) => {
+        this.setState({
+            viewMode: dims.window.height > 500 ? "portrait": "landscape"
         });
     }
+
     loginHandler = () => {
         startMainTabs();
     }
