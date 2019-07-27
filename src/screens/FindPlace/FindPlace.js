@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet, Animated} from 'react-native';
 import {connect} from 'react-redux';
 import PlaceList from '../../components/PlaceList/PlaceList';
 
@@ -10,7 +10,9 @@ class FindPlaceScreen extends Component {
     }
 
     state = {
-        placesLoaded: false
+        placesLoaded: false,
+        removeAnim: new Animated.Value(0.99),
+        
     }
 
     //listening to the navigator event to know when side drawer button is clicked
@@ -44,18 +46,35 @@ class FindPlaceScreen extends Component {
     }
 
     placesSearchHandler = () => {
-        this.setState({
-            placesLoaded: true
-        })
+        Animated.timing(this.state.removeAnim,{
+            toValue: 0,
+            duration: 500, //500 ms
+            useNativeDriver: true
+        }).start();
     }
 
     render(){
         let content = (
-            <TouchableOpacity onPress={this.placesSearchHandler}>
-                <View style={styles.searchButton}>
-                    <Text style={styles.searchButtonText}>Find Places</Text>
-                </View>
-            </TouchableOpacity>
+            <Animated.View 
+            style={{
+                //removeAnim is not a number but a animated property
+                opacity: this.state.removeAnim, //button start opaque and end at transparent
+                transform: [
+                    {
+                        //making the button bigger
+                        scale: this.state.removeAnim.interpolate({
+                            inputRange: [0, 0.99],
+                            outputRange: [12, 0.99]
+                        })
+                    }
+                ]
+            }}>
+                <TouchableOpacity onPress={this.placesSearchHandler}>
+                    <View style={styles.searchButton}>
+                        <Text style={styles.searchButtonText}>Find Places</Text>
+                    </View>
+                </TouchableOpacity>
+            </Animated.View>
 
         );
         if (this.state.placesLoaded) { //if you have places, don't show the button
