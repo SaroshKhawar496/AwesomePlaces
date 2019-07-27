@@ -5,6 +5,10 @@ import PlaceList from '../../components/PlaceList/PlaceList';
 
 class FindPlaceScreen extends Component {
 
+    static navigatorStyle = {
+        navBarButtonColor: "orange"
+    }
+
     //listening to the navigator event to know when side drawer button is clicked
     constructor(props) { 
         super(props);
