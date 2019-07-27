@@ -12,7 +12,7 @@ class FindPlaceScreen extends Component {
     state = {
         placesLoaded: false,
         removeAnim: new Animated.Value(0.99),
-        
+        placesAnim: new Animated.Value(0)
     }
 
     //listening to the navigator event to know when side drawer button is clicked
@@ -45,12 +45,27 @@ class FindPlaceScreen extends Component {
 
     }
 
+    //Animating the fading in of the places
+    placesLoadedHandler = () => {
+        Animated.timing(this.state.placesAnim, {
+            toValue: 1,
+            duration: 500, 
+            useNativeDriver: true
+        }).start();
+    }
+    //animating the Find Places button
     placesSearchHandler = () => {
         Animated.timing(this.state.removeAnim,{
             toValue: 0,
             duration: 500, //500 ms
             useNativeDriver: true
-        }).start();
+        }).start(
+            ()=>{
+                this.setState({
+                    placesLoaded: true
+                });
+                this.placesLoadedHandler();
+            });
     }
 
     render(){
@@ -79,10 +94,15 @@ class FindPlaceScreen extends Component {
         );
         if (this.state.placesLoaded) { //if you have places, don't show the button
             content = (
-                <PlaceList 
-                places={this.props.places}
-                onItemSelected={this.itemSelectedHandler}
-                />
+                <Animated.View 
+                style={{
+                    opacity: this.state.placesAnim
+                }}>
+                    <PlaceList 
+                    places={this.props.places}
+                    onItemSelected={this.itemSelectedHandler}
+                    />
+                </Animated.View>
             );
         }
         return(
