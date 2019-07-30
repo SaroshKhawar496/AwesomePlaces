@@ -17,6 +17,8 @@ import MainText from '../../components/UI/MainText/MainText';
 import ButtonWithBackground from '../../components/UI/ButtonWithBackground/ButtonWithBackground';
 import backgroundImage from "../../assets/background.jpg";
 
+import validate from '../../utility/validation';
+
 class AuthScreen extends Component{
     //state to manage change in device orientation
     state = {
