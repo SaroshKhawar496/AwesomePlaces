@@ -9,6 +9,9 @@ import {
     Dimensions
 } from 'react-native';
 
+import {connect} from 'react-redux';
+import {tryAuth} from '../../store/actions/index'
+
 import startMainTabs from '../MainTabs/startMainTabs';
 
 import DefaultInput from '../../components/UI/DefaultInput/DefaultInput'
@@ -72,6 +75,11 @@ class AuthScreen extends Component{
     }
 
     loginHandler = () => {
+        const authData = {
+            email: this.state.controls.email.value,
+            password: this.state.controls.password.value
+        }
+        this.props.onLogin(authData);
         startMainTabs();
     }
     
@@ -241,4 +249,10 @@ const styles = StyleSheet.create({
     }
 });
 
-export default AuthScreen;
+const mapDispatchToProps = dispatch => {
+    return {
+        onLogin: (authData) => dispatch (tryAuth(authData))
+    };
+}
+
+export default connect(null, mapDispatchToProps)(AuthScreen);
