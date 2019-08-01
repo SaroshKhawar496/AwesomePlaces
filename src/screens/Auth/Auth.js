@@ -6,7 +6,10 @@ import {
     TextInput, 
     StyleSheet, 
     ImageBackground,
-    Dimensions
+    Dimensions,
+    KeyboardAvoidingView,
+    Keyboard,
+    TouchableWithoutFeedback
 } from 'react-native';
 
 import {connect} from 'react-redux';
@@ -167,14 +170,19 @@ class AuthScreen extends Component{
             source={backgroundImage} 
             style={styles.backgroundImage}>
 
-            <View style ={styles.container}>
+            {/* keyobard will be dismissed if you touch outside the inputFields */}
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            
+            {/* padding behavior pushes up the elements on the screen,
+            when the soft keyboard popsup */}
+            <KeyboardAvoidingView style={styles.container} behavior="padding">
                 
                 {headingText}
                     <ButtonWithBackground 
                     color="#29aaf4" 
                     onPress={this.switchAuthModeHandler}
                     >Switch to {this.state.authMode === "login" ? "Sign Up" : "Login"}</ButtonWithBackground>
- 
+                  
                     <View style={styles.inputContainer}>
                         {/* passing style as props below to DefaultInput will override the style in DefaultInput */}
                         <DefaultInput 
@@ -216,6 +224,7 @@ class AuthScreen extends Component{
                             {confirmPasswordControl}                           
                         </View>
                     </View>
+                    
 
                     <ButtonWithBackground 
                     color="#29aaf4" 
@@ -226,7 +235,8 @@ class AuthScreen extends Component{
                     !this.state.controls.confirmPassword.valid && this.state.authMode === "signup"
                 }
                     >Submit</ButtonWithBackground>
-            </View>
+            </KeyboardAvoidingView>
+            </TouchableWithoutFeedback>
             </ImageBackground>
         );
     }
