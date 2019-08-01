@@ -156,6 +156,7 @@ class AuthScreen extends Component{
                     onChangeText={(val)=> this.updateInputState('confirmPassword', val)}                                       
                     valid={this.state.controls.confirmPassword.valid}
                     touched={this.state.controls.confirmPassword.touched}
+                    secureTextEntry //will hide the password
                   />
                 </View>
             );
@@ -183,6 +184,9 @@ class AuthScreen extends Component{
                         onChangeText={(val)=> this.updateInputState('email', val)}
                         valid={this.state.controls.email.valid}
                         touched={this.state.controls.email.touched}
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        keyboardType='email-address'
                         />
                         
                         {/* aligning password fields on same row if device rotated */}
@@ -206,6 +210,7 @@ class AuthScreen extends Component{
                                 onChangeText={(val)=> this.updateInputState('password', val)}                                        
                                 valid={this.state.controls.password.valid}
                                 touched={this.state.controls.password.touched}
+                                secureTextEntry //will hide the password
                                 />
                             </View> 
                             {confirmPasswordControl}                           
