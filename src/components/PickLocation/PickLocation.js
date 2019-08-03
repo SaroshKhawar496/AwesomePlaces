@@ -10,7 +10,8 @@ class PickLocation extends Component {
             latitudeDelta: 0.0122,
             longitudeDelta: Dimensions.get('window').width /
                             Dimensions.get('window').height * 0.0122
-        }
+        },
+        locationChosen: false
     }
     //handler to change the lat/lon touched on map
     pickLocationHandler = event => {
@@ -21,20 +22,30 @@ class PickLocation extends Component {
                     ...prevState.focusedLocation,
                     latitude: coords.latitude,
                     longitude: coords.longitude
-                }
-            }
-        })
+                },
+                locationChosen: true
+            };
+        });
     }
     render(){
+        let marker = null;
+        
+        if(this.state.locationChosen){
+            marker = <MapView.Marker coordinate={this.state.focusedLocation} />
+        }
         
         return(
             <View style={styles.container}>
-                <MapView 
+                <MapView
+                //initialRegion is only for the first time load
                 initialRegion={this.state.focusedLocation}
+                //region is the updated location if you touch on the map
                 region={this.state.focusedLocation}
                 style={styles.map}
                 onPress={this.pickLocationHandler}
-                />
+                >
+                    {marker}
+                </MapView>
 
                 <View style={styles.button}>
                     <Button title="Locate Me" onPress={()=>alert("Locate Me!")}/>
