@@ -3,10 +3,11 @@
 // Convenient for async code for handling sideaffects in handling actions
 
 import {ADD_PLACE, DELETE_PLACE} from './actionTypes'
-export const addPlace = (placeName) => {
+export const addPlace = (placeName,location) => {
     return {
         type: ADD_PLACE,
-        placeName: placeName
+        placeName: placeName,
+        location: location
     };
 };
 

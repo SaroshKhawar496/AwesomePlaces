@@ -17,7 +17,8 @@ const reducer = (state = initialState, action) => {
                 image: {
                 uri: "https://vacationidea.com/pix/img25Hy8R/articles/most-beautiful-places-in-the-world_t5.jpg"
    
-                }            
+                },
+                location: action.location            
             })
             };  
             case DELETE_PLACE:

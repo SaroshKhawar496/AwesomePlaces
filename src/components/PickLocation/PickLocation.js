@@ -32,6 +32,11 @@ class PickLocation extends Component {
                 locationChosen: true
             };
         });
+        //sending out the location to SharePlace.js
+        this.props.onLocationPick({
+            latitude: coords.latitude,
+            longitude: coords.longitude
+        })
     }
 
     getLocationHandler = () => {
