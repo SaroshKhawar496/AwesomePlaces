@@ -87,7 +87,7 @@ class SharePlaceScreen extends Component {
   placeAddedHandler = () => {
       this.props.onAddPlace(
         this.state.controls.placeName.value, 
-        this.state.controls.location);
+        this.state.controls.location.value);
     
   };
 
