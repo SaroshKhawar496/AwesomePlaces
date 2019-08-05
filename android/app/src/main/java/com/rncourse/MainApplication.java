@@ -8,6 +8,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.airbnb.android.react.maps.MapsPackage;
+import com.imagepicker.ImagePickerPackage;
 
 import com.oblador.vectoricons.VectorIconsPackage;
 
@@ -61,7 +62,8 @@ public class MainApplication extends NavigationApplication {
 		return Arrays.<ReactPackage>asList(
 			// eg. new VectorIconsPackage()
       new VectorIconsPackage(),
-      new MapsPackage()
+      new MapsPackage(),
+      new ImagePickerPackage()
 		);
 	}
 
